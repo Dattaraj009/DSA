@@ -1,6 +1,7 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
+        // this que is only solved my prefix sum
         int n = nums.size();
         unordered_map<int,int> mpp;
         int cnt = 0;
