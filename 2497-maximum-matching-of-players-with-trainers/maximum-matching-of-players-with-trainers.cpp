@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
+        int n = players.size();
+        int m = trainers.size();
+        sort(players.begin(),players.end());
+        sort(trainers.begin(),trainers.end());
+        int cnt = 0;
+        int i=0,j=0;
+        while(i<n && j <m){
+            if(i<n && j<m && players[i] <= trainers[j]){
+                i++,j++;
+                cnt++;
+            }
+
+            while(i<n && j<m && players[i] > trainers[j]){
+                j++;
+            }
+        }
+
+        return cnt;
+    }
+};
