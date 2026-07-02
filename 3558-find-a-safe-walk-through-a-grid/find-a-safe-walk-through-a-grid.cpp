@@ -25,7 +25,7 @@ public:
             for(int i=0;i<4;i++){
                 int nr = r + dr[i];
                 int nc = c + dc[i];
-                if(nr < n && nr >= 0 && nc < m && nc >= 0 && vis[nr][nc] < newhel - grid[nr][nc]){
+                if(nr < n && nr >= 0 && nc < m && nc >= 0 && vis[nr][nc] < newhel - grid[nr][nc] && newhel-grid[nr][nc] >= 1){
                     if(grid[nr][nc] == 1){
                         pq.push({1,nr,nc,newhel-1});
                         vis[nr][nc] = newhel - grid[nr][nc];
