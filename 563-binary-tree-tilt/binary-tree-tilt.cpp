@@ -22,7 +22,7 @@ public:
         return left+right+root->val;
     }
     int findTilt(TreeNode* root) {
-        int s = solve(root);
+        solve(root);
         return store;
     }
 };
