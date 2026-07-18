@@ -1,34 +1,20 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        unordered_map<char,int> mpp;
-        unordered_map<char,int> mpp1;
-        int n1 = s1.size();
-        for(int i=0;i<n1;i++){
-            mpp[s1[i]]++;
+        vector<int> freq1(26,0);
+        vector<int> freq2(26,0);
+        int n = s1.size();
+        int m = s2.size();
+        if(n>m) return false;
+        for(int i=0;i<n;i++){
+            freq1[s1[i]-'a']++;
+            freq2[s2[i]-'a']++;
         }
-        int n2 = s2.size();
-        int r=0;
-        int cnt =0;
-        mpp1 = mpp;
-        while(r<n2){
-           int p = 0;
-           if(mpp1.find(s2[r]) != mpp1.end()){
-            p = r;
-            while(r<n2 && mpp1.find(s2[r]) != mpp1.end()){
-
-                mpp1[s2[r]]--;
-                if(mpp1[s2[r]]==0) mpp1.erase(s2[r]);
-
-                cnt++;
-                if(cnt==n1) return true;
-                r++;
-            }
-            r = p;
-           }
-           mpp1 = mpp;
-           cnt = 0;
-           r++;
+        if(freq1 == freq2) return true;
+        for(int i=n;i<m;i++){
+            freq2[s2[i-n]-'a']--;
+            freq2[s2[i]-'a']++;
+            if(freq1==freq2) return true;
         }
 
         return false;
