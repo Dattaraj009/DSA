@@ -9,38 +9,39 @@
  */
 class Solution {
 public:
-    void store(TreeNode* root,vector<int> adj[]){
+    void solve(TreeNode* root,vector<int> adj[]){
         if(!root) return;
-        if(root->left)adj[root->val].push_back(root->left->val);
-        if(root->left)adj[root->left->val].push_back(root->val);
-        if(root->right)adj[root->right->val].push_back(root->val);
-        if(root->right)adj[root->val].push_back(root->right->val);
-
-        store(root->left,adj);
-        store(root->right,adj);
+        if(root->left){
+            adj[root->left->val].push_back(root->val);
+            adj[root->val].push_back(root->left->val);
+        }
+        if(root->right){
+            adj[root->right->val].push_back(root->val);
+            adj[root->val].push_back(root->right->val);
+        }
+        solve(root->left,adj);
+        solve(root->right,adj);
     }
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
         vector<int> adj[501];
-        vector<int> vis(501,0);
-        vector<int> ans;
-        store(root,adj);
-        queue<pair<int,int>> q;// val, steps
+         solve(root,adj);
+        queue<pair<int,int>> q;
         q.push({target->val,0});
+        vector<int> vis(501,0);
         vis[target->val] = 1;
+        vector<int> ans;
         while(!q.empty()){
-            auto[node,steps] = q.front();
-            q.pop();
-            if(steps==k){
-                ans.push_back(node);
-                continue;
-            }
-
-            for(auto it:adj[node]){
-                if(!vis[it]){
-                    q.push({it,steps+1});
-                    vis[it] = 1;
+             auto [val,steps] = q.front();
+             q.pop();
+             if(steps==k){
+                ans.push_back(val);
+             }
+             for(auto adjval:adj[val]){
+                if(!vis[adjval]){
+                   q.push({adjval,steps+1});
+                   vis[adjval] = 1;
                 }
-            }
+             }
         }
 
         return ans;
