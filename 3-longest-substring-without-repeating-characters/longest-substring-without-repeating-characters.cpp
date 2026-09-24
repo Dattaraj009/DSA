@@ -9,7 +9,7 @@ public:
             mpp[s[r]]++;
             while(mpp[s[r]] > 1 && l<r){
                 mpp[s[l]]--;
-                if(mpp[s[l]] == 0) mpp.erase(mpp[s[l]]);
+                if(mpp[s[l]] == 0) mpp.erase(s[l]);
                 l++;
             }
             maxi = max(maxi,(r-l+1));
